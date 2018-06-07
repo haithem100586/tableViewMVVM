@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class TodoItemTableViewCell: UITableViewCell {
 
     
@@ -30,8 +31,22 @@ class TodoItemTableViewCell: UITableViewCell {
     
     func configure (withViewModel  viewModel: TodoItemPrensentable) -> (Void){
     
-        txtIndex.text = viewModel.id
-        txtTodoItem.text = viewModel.textValue
+        txtIndex.text = viewModel.id!
+        //deleted ep4
+        //txtTodoItem.text = viewModel.textValue
+ 
+        ///added ep4
+        let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: viewModel.textValue!)
+        if viewModel.isDone! {
+            let range = NSMakeRange(0, attributeString.length)
+            attributeString.addAttribute(NSAttributedStringKey.strikethroughColor, value: UIColor.lightGray, range: range)
+            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 1, range: range)
+            attributeString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.lightGray, range: range)
+        }
+        
+        //added here ep4
+        txtTodoItem.attributedText = attributeString
+        
     }
     
     
